@@ -1,0 +1,153 @@
+#include <iostream>
+#include <string>
+#include "sha1.h"
+#include "hash.h"
+#include <ctime>
+#include <fstream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+	bool cracked;
+	string hashes[28] =
+        {
+                "f0884fd4369a0972a8d91f3d8cdf13c67abdd47c",
+                "9963e46d9ee530fec01050d2e6160a3efc4cd5e3",
+                "fe7836de55b94cfaced4cdb0e255a9788b38ea51",
+                "701255a3dedc847979b7fe01926efdb4be72d243",
+                "08eb68ecd1831d37ed20d60e8ecb40063d2347cb",
+                "e11e308daf2c85589c3a4120fe35517472ff9e74",
+                "8ef07dc783576e79dac1ce00a2ff8292cf3d3d48",
+                "2189c9ea063bf90912358afa779925ec7a00a3b7",
+                "9105daf1a0eb3c07f2ac239c6064a6a97f8fa605",
+                "b8fcbc11c0f02555b17a139ec0ae7fb433f7dc01",
+                "d2ffb879595db0132ab30515e5ab2f1b801422df",
+                "89b393ad1ac920d66083440f6999746d71ed8fd8",
+                "9d057cd0369c79b564ef1e250d7740be73b89446",                 
+                "2a6fe914c4f981846815eedbdb92b4c6f692ab8a",                 
+                "bb52e6ea1c6f51c6a97586cbb8018e7851ef3060",                
+                "52a77fdff675cc8616be9080515c137e2d21c96b",                 
+                "947d9b0888df5551f0b75238268497b58664e75c",                 
+                "bc2a7e7097e4a45a13251c5331c2c357296acae9",                 
+                "97df296ca6092b36684e54ba0ddfd2ff5827559a",                 
+                "2dc2cf920eb94ec3d8f0e24f0fff158795b0fc8f",                 
+                "f3b4081feb33444323698fae6e4dcd40c4b85236",                 
+                "7868cc6b79318ac381336d2eb5470936f7dd07d8",                 
+                "5c72142556de9bb324df77f5d69f8aa68abc9df7",                 
+                "fa707e0ead886ad870dad791cbd51aa9ec5a0572",                 
+                "f7ba124ccd3b541e2618ef599a98db654b1ed058",                 
+                "2a16fe5d1351d5a51690dbb018717da6aa985cd9",                 
+                "a8e3ae6b60235f716a878d4808dc56bd403a0edf",                 
+                "82a2488d7cceca5397626926309d8cc9fa75bf82"   
+        };
+	
+//	char start[3] = "!!!";
+	
+/*The loops go through each of the hashes above and brute force computes every 3-character string combination
+ * and hashes it to check if it matches any of the provided hashes above. If it finds a match, it prints it and
+ * begins cracking for the next hash*/
+/*	cout << "3 layer brute force" << endl;
+	for(int x = 0; x < 28; x++)
+	{
+		cracked = false;
+		for(int msb = 33; msb < 127; msb++)
+		{
+			start[2] = (char)(msb);
+			for(int mid = 33; mid < 127; mid++)
+			{
+				start[1] = (char)(mid);
+				for(int lsb = 33; lsb < 127; lsb++)
+				{
+					start[0] = (char)(lsb);
+					if(hash(start) == hashes[x])
+					{
+						cout << hashes[x] << " : " << start << endl;
+						cracked = true;
+						break;
+					}
+					if(cracked)
+						break;
+				}
+				if(cracked)
+					break;
+			}
+			if(cracked)
+				break;
+		}
+		cout << "Failed" << endl;
+	}*/
+
+
+/*	string start = "!";
+//	string pass = "1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+//	int position = 0;
+	while(true)
+	{
+		time_t now = time(0);
+		char* dt = ctime(&now);
+		cout << "Starting brute force of " << start.length() << " characters" << " " << dt;
+	for(int x = 0; x < 28; x++)
+	{
+//		position = 0;
+		while(start[start.length()-1] != '~')
+		{	
+			if(hash(start) == hashes[x])
+                        {
+                                cout << hashes[x] << " : " << start << endl;
+                                break;
+                        }
+//			position++;
+			start[0]++;	
+			
+			for(int x = 0; x < start.length()-1; x++)
+			{
+				if(start[x] == '~')
+				{
+				//	position = 0;
+					start[x] = '!';
+					start[x+1]++; 
+				}
+			}
+		}
+	}
+
+	start.push_back('!');
+	}
+*/
+/*		vector<string> words;	
+		string line, crack;
+		ifstream myFile;
+		myFile.open("dictionary.txt");
+		
+		if(myFile.is_open())
+		{
+			while(getline (myFile,line))
+			{
+				words.push_back(line);
+			}
+		myFile.close();
+		}
+		//cout << "Orig size: " << words[52].length() << endl;
+		for(int x = 0; x < words.size(); x++)
+		{
+			//words[x][words[x].length()-1] = NULL;// << " PLS" << endl;
+			//cout << words[x] << " PLS" << endl;
+		}
+		cout << "New(?) size: " << words[52].length() << endl;
+		for(int xx = 0; xx < words.size(); xx++)
+		{
+			crack = words[xx];
+			for(int x = 0; x < 28; x++)
+			{	//cout << words[xx] << " " << "PLS" << endl;
+				if(hash(words[xx]) == hashes[x])
+				cout << hashes[x] << " : " << words[xx] << endl;
+			}
+		}*/
+
+		for(int x = 0; x < 28; x++)
+		{	
+			if(hash(":-(") == hashes[x])
+				cout << hashes[x] << " : " << endl;
+		}
+}

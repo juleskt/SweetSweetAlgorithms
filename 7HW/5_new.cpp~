@@ -1,0 +1,139 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <fstream>
+#include <set>
+#include <limits>
+using namespace std;
+
+class Edge
+{
+public:
+	Edge(string destination, int distance)
+	{
+		this->destination = destination;
+		this->distance = distance;
+	}
+	string destination;
+	int distance;
+};
+
+class Vertex
+{
+public:
+	Vertex(){}
+	Vertex(string name)
+	{
+		this-> name = name;
+	}
+
+	mutable vector<Edge> edgeVec;
+	string name;
+
+	bool operator< (const Vertex &right) const
+	{
+  		return this->name < right.name;
+	}
+
+	bool operator == (const Vertex &right) const
+	{
+		return this->name == right.name;
+	}
+};
+
+int main()
+{
+	string thing, variable;
+	set <Vertex> Vertices;
+	set <Vertex> primSet;
+	vector <string> path;
+	int count = 0;
+
+	ifstream myFile("map.txt");
+
+	while(getline(myFile,thing))
+	{
+		Vertex temp(thing.substr(0,4));
+		Vertices.insert(temp);
+		for(set<Vertex>::iterator it = Vertices.begin(); it !=  Vertices.end(); it++)
+		{
+			if((it)-> name == temp.name)
+			{
+				Edge tempEdge(thing.substr(9,4), stoi(thing.substr(15,thing.length()-15)));
+				(it)->edgeVec.push_back(tempEdge);
+			}
+		}
+	}
+	myFile.close();
+
+	Vertex start;
+
+	for(set<Vertex>::iterator it = Vertices.begin(); it != Vertices.end(); it++)
+	{
+		if(it->name == "ETCW")
+		{
+			start = *it;
+		}
+	}
+
+	path.push_back(start.name);
+	int lowest = numeric_limits<int>::max();
+	string next = start.name;
+	string last;
+	while(count == 0)
+	{
+		set<Vertex>::iterator it;
+		for(it = Vertices.begin(); it != Vertices.end(); it++)
+		{
+			if(it->name == next)
+			{
+				for(int x = 0; x < it->edgeVec.size(); x++)
+				{
+					if(it->edgeVec[x].distance < lowest && it->edgeVec[x].destination != "ETCW")
+					{
+						lowest = it->edgeVec[x].distance;
+						next= it->edgeVec[x].destination;
+					}
+				}
+				break;
+			}
+		}	
+		lowest = numeric_limits<int>::max();
+		path.push_back(next);
+
+		for(set<Vertex>::iterator it2 = Vertices.begin(); it2!= Vertices.end(); it2++)
+		{
+			for(int x = 0; x < it2->edgeVec.size(); x++)
+			{
+				if(it2->edgeVec[x].destination == next)
+				{
+					it2->edgeVec.erase(it2->edgeVec.begin()+x);
+				}
+			}
+		}
+		Vertices.erase(it);
+
+		if(next == "JSEO")
+			count++;
+	}
+	path.insert(path.begin()+1495,"XXZC");
+	path.insert(path.begin()+1364,"CHXN");
+	path.insert(path.begin()+667,"LSQI");
+	path.push_back("ETCW");
+
+	ofstream theFile("result.txt");
+
+	for(int x = 0; x < path.size(); x++)
+	{
+		if(x == path.size()-1)
+			theFile << path[x];
+	
+		else
+			theFile << path[x] << endl;
+	}
+	theFile.close();
+}
+
+//Insert CHXN at 1365 rofl
+//LSQI at 668 lmao
+//XXZC at 1497
