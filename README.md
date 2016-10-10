@@ -1,4 +1,4 @@
 # SweetSweetAlgorithms
-A collection of algorithms problem sets from ENG EC 330 from Boston University's College of Engineering.
+Some alg problems.
 
 Currently a mess, I will be cleaning it up soon.
